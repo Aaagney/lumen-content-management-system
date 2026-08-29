@@ -1,0 +1,194 @@
+{
+  "1": [
+    {
+      "question": "What is the primary role of CRISPR in bacteria?",
+      "options": [
+        "To replicate viral DNA",
+        "To act as a molecular scalpel recognizing and cutting viral DNA",
+        "To synthesize proteins",
+        "To repair cell walls"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which genetic therapy based on CRISPR was approved by the FDA in late 2023?",
+      "options": [
+        "Duchenne muscular dystrophy therapy",
+        "Sickle cell disease therapy",
+        "Hereditary blindness therapy",
+        "Cystic fibrosis therapy"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is the main ethical distinction of germline gene editing compared to somatic editing?",
+      "options": [
+        "Germline editing is much cheaper to perform",
+        "Germline editing only affects the treated individual",
+        "Germline editing alters the lineage, passing changes to future generations",
+        "Germline editing does not work on mammalian cells"
+      ],
+      "answer": 2
+    }
+  ],
+  "2": [
+    {
+      "question": "What was the first message Charley Kline attempted to type on ARPANET?",
+      "options": [
+        "HELLO",
+        "LOGIN",
+        "UCLA",
+        "START"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Why did the system crash during the first transmission on ARPANET?",
+      "options": [
+        "The Stanford computer ran out of buffer memory",
+        "The connection cable was physically severed",
+        "A sudden power outage occurred in Los Angeles",
+        "The typing speed of the student was too fast"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "What telecommunications method did ARPANET improve upon?",
+      "options": [
+        "Packet switching",
+        "Circuit switching",
+        "Satellite relay",
+        "Fiber optics"
+      ],
+      "answer": 1
+    }
+  ],
+  "3": [
+    {
+      "question": "What organism lives in symbiosis with corals, providing their color and energy?",
+      "options": [
+        "Zooxanthellae (microscopic algae)",
+        "Plankton",
+        "Barnacles",
+        "Sea anemones"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "What temperature range above seasonal averages drives coral bleaching?",
+      "options": [
+        "0.1 to 0.5 degrees Celsius",
+        "1.5 to 2.0 degrees Celsius",
+        "5.0 to 10.0 degrees Celsius",
+        "0.5 to 1.0 degrees Celsius"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which of the following is NOT a localized strategy trialed by marine biologists to save reefs?",
+      "options": [
+        "Assisted evolution",
+        "Cloud brightening",
+        "Shade fabrics",
+        "Artificial ocean currents"
+      ],
+      "answer": 3
+    }
+  ],
+  "4": [
+    {
+      "question": "Where are new experiences temporarily stored during the day?",
+      "options": [
+        "Neocortex",
+        "Hippocampus",
+        "Cerebellum",
+        "Amygdala"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What cognitive process occurs primarily during slow-wave (deep) sleep?",
+      "options": [
+        "Synaptic consolidation (transferring memories to neocortex)",
+        "Active dreaming",
+        "Muscle tissue regeneration",
+        "Sensory perception enhancement"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "What is the primary benefit of REM sleep for learning?",
+      "options": [
+        "Deep physical relaxation of muscles",
+        "Integrating new memories with existing knowledge structures for creativity",
+        "Brain fluid detoxification",
+        "Restoring motor skills coordination"
+      ],
+      "answer": 1
+    }
+  ],
+  "5": [
+    {
+      "question": "What makes the Indus Valley writing system particularly difficult to decipher?",
+      "options": [
+        "The symbols are too complex to reproduce",
+        "There is no bilingual text, like a Rosetta Stone, ever found",
+        "Most soapstone seals have been destroyed",
+        "It was written on paper that decayed over time"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Which language family is commonly proposed as the origin of the Indus Valley script?",
+      "options": [
+        "Indo-European",
+        "Dravidian or Indo-Aryan",
+        "Afroasiatic",
+        "Sino-Tibetan"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "How have researchers recently used machine learning to analyze Indus symbols?",
+      "options": [
+        "To translate them word-for-word into English",
+        "To compute the entropy of symbol sequences, confirming they resemble spoken language",
+        "To date the soapstone seals carbon levels",
+        "To map the trade routes of ancient merchants"
+      ],
+      "answer": 1
+    }
+  ],
+  "6": [
+    {
+      "question": "What quantum principle allows qubits to exist in a state of 0 and 1 simultaneously?",
+      "options": [
+        "Entanglement",
+        "Superposition",
+        "Interference",
+        "Decoherence"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is the key advantage of quantum entanglement in computing?",
+      "options": [
+        "It makes computers physically smaller",
+        "It allows the state of one qubit to instantly influence another, enabling parallel combinations",
+        "It prevents hardware overheating",
+        "It secures data from cyber threats"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is a primary practical application for quantum computers?",
+      "options": [
+        "High-definition video editing",
+        "Web browser optimization",
+        "Cryptanalysis and chemical structure simulation",
+        "Standard word processing"
+      ],
+      "answer": 2
+    }
+  ]
+}
