@@ -6,6 +6,7 @@ import Browse from './pages/Browse';
 import ArticleDetail from './pages/ArticleDetail';
 import WriteArticle from './pages/WriteArticle';
 import Profile from './pages/Profile';
+import Admin from './pages/Admin';
 
 export default function App() {
   const [role, setRole] = useState('Priya Mehta (author)');
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/article/:id" element={<ArticleDetail />} />
         <Route path="/write" element={<WriteArticle />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );
