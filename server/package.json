@@ -1,7 +1,7 @@
 {
   "name": "lumen-server",
   "version": "1.0.0",
-  "description": "Express server for Lumen authentication module",
+  "description": "Express server for Lumen",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.9.7"
+    "mysql2": "^3.24.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.14"
   }
 }

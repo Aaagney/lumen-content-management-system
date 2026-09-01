@@ -6,8 +6,8 @@
   --color-white: #ffffff;
   --color-gray-text: #5c5a54;
   --color-gray-light: #e5e2da;
-  --color-orange-dot: #d97706; /* status badge */
-  
+  --color-orange-dot: #d97706;
+
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'Fira Code', monospace;
@@ -30,8 +30,7 @@ body {
   width: 100%;
 }
 
-/* App content wrapper — no outer frame/border, fills the page like the real site */
-/* App content wrapper — no outer frame/border, fills the page like the real site */
+/* App content wrapper */
 .app-frame {
   background-color: var(--color-bg-warm);
   min-height: 100vh;
@@ -79,7 +78,7 @@ body {
 
 .nav-link {
   font-family: var(--font-mono);
-  color: #4b5563; /* gray-600 */
+  color: #4b5563;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
@@ -134,7 +133,7 @@ body {
   background-color: #eae7de;
   border: 1px solid #c9c4b7;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 100;
   min-width: 200px;
   overflow: hidden;
@@ -152,7 +151,7 @@ body {
 }
 
 .role-dropdown-item.active {
-  background-color: #3b82f6; /* matching figma dropdown active color */
+  background-color: #3b82f6;
   color: white;
 }
 
@@ -178,7 +177,7 @@ body {
   border-radius: 50%;
 }
 
-/* Avatar representation */
+/* Avatar */
 .avatar-circle {
   width: 32px;
   height: 32px;
@@ -200,7 +199,7 @@ body {
   overflow-y: auto;
 }
 
-/* Typography styles */
+/* Typography */
 .serif-title {
   font-family: var(--font-serif);
   color: var(--color-forest);
@@ -220,10 +219,10 @@ body {
   line-height: 1.6;
 }
 
-/* Custom Cards matching Figma (white, rounded-2xl, soft shadow) */
+/* Cards */
 .lumen-card {
   background-color: var(--color-white);
-  border-radius: 16px; /* rounded-2xl */
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   padding: 32px;
   margin-bottom: 24px;
@@ -358,7 +357,7 @@ body {
   text-decoration: underline;
 }
 
-/* Custom Role Toggle Button inside Register Form */
+/* Custom Role Toggle Button */
 .role-toggle-container {
   display: flex;
   background-color: #eae7de;
@@ -387,7 +386,7 @@ body {
   color: var(--color-white);
 }
 
-/* Home / Article Feed styling */
+/* Home / Article Feed */
 .featured-card {
   position: relative;
   background-color: var(--color-white);
@@ -417,7 +416,11 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
   padding: 32px;
   color: white;
   display: flex;
@@ -432,7 +435,7 @@ body {
 }
 
 .badge-featured {
-  background-color: #d97706; /* orange */
+  background-color: #d97706;
   color: white;
   padding: 3px 12px;
   border-radius: 9999px;
@@ -452,7 +455,7 @@ body {
   font-family: var(--font-serif);
   font-size: 2.25rem;
   color: white;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .featured-desc {
@@ -469,7 +472,7 @@ body {
   margin-top: 4px;
 }
 
-/* Profile Layout Style */
+/* Profile Layout */
 .profile-card {
   display: flex;
   align-items: center;
@@ -527,7 +530,7 @@ body {
 
 .stat-lbl {
   font-family: var(--font-mono);
-  font-size: 0.65rem; /* Monospace is slightly larger, so 0.65rem is a great fit for uppercase labels */
+  font-size: 0.65rem;
   color: #9ca3af;
   text-transform: uppercase;
 }
@@ -545,7 +548,7 @@ body {
   border-radius: 12px;
   padding: 18px 24px;
   margin-bottom: 14px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -554,7 +557,7 @@ body {
 
 .article-row-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
 }
 
 .article-row-left {
