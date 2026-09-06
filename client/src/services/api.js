@@ -80,7 +80,7 @@ export const api = {
     if (!response.ok) {
       throw new Error(data.message || 'Failed to fetch articles');
     }
-    return data.articles;
+    return data.articles || data;
   },
 
   // Fetch all users (for the navbar role-switcher)
