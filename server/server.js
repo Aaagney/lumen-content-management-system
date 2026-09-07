@@ -4,6 +4,10 @@ require('dotenv').config();
 const articleRoutes = require('./routes/articleRoutes');
 
 const app = express();
+const {
+  authenticateToken,
+  requireAdmin
+} = require("./middleware/authMiddleware");
 
 // 1. MUST BE FIRST: Enable CORS specifically for your React app
 app.use(cors({
