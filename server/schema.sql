@@ -52,3 +52,19 @@ INSERT INTO articles (title, subtitle, content, category_id, author_id, cover_im
  'On October 29, 1969, a student typed two letters from a terminal at UCLA. The system crashed. The internet had arrived.',
  'The message was supposed to be "login", but at 10:30 PM, 1969, the precursor to today''s internet crashed after typing "lo". Despite this, ARPANET was born.',
  2, 2, 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200', 'Published', 2117, 182, '5 min read');
+
+
+
+CREATE TABLE IF NOT EXISTS comments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  article_id INT NOT NULL,
+  user_id INT NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Optional: Seed a test comment so it displays immediately
+INSERT INTO comments (article_id, user_id, content) 
+VALUES (1, 4, 'This is an incredible breakdown of CRISPR technology!');
