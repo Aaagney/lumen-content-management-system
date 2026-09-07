@@ -1,25 +1,6 @@
-// const mysql = require('mysql2');
-// require('dotenv').config();
-
-// const db = mysql.createPool({
-//   host: process.env.DB_HOST || 'localhost',
-//   user: process.env.DB_USER || 'root',
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-//   port: process.env.DB_PORT || 3307
-// });
-
-// db.getConnection((err, connection) => {
-//   if (err) {
-//     console.error('MySQL Connection Error:', err.message);
-//   } else {
-//     console.log('Connected to MySQL database on port 3307!');
-//     connection.release();
-//   }
-// });
-
-// module.exports = db;
-
+// Centralized MySQL connection pool.
+// Every controller/service in the project imports this single module —
+// there must be no other place in the codebase that opens a DB connection.
 
 const mysql = require('mysql2');
 require('dotenv').config();
@@ -29,17 +10,20 @@ const db = mysql.createPool({
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 3307
+  port: process.env.DB_PORT || 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 db.getConnection((err, connection) => {
   if (err) {
-    console.error('MySQL Connection Error:', err.message);
+    console.error('MySQL connection error:', err.message);
   } else {
-    console.log('Connected to MySQL database on port 3307!');
+    console.log(`Connected to MySQL database "${process.env.DB_NAME}".`);
     connection.release();
   }
 });
 
-// Exporting promise wrapper for async/await support in routes
+// Exported as the promise-wrapper so every controller can use async/await.
 module.exports = db.promise();

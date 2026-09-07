@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import http, { getCurrentUserId } from '../api/http';
 import { useNavigate } from 'react-router-dom';
 import { Edit2, Trash2 } from 'lucide-react';
 
@@ -7,8 +7,15 @@ export default function Profile() {
   const [articles, setArticles] = useState([]);
   const navigate = useNavigate();
 
+  // Falls back to the original demo user (1) when no auth token is stored,
+  // so this page keeps working exactly as before if the person isn't
+  // logged in. Once logged in, the token's own id is used, and — since the
+  // request also carries the Authorization header — the backend will
+  // include that user's unpublished articles too, not just Published ones.
+  const userId = getCurrentUserId() ?? 1;
+
   const fetchUserArticles = () => {
-    axios.get('http://localhost:5000/api/articles/user/1')
+    http.get(`/api/articles/user/${userId}`)
       .then(res => setArticles(res.data))
       .catch(err => console.error(err));
   };
@@ -19,8 +26,12 @@ export default function Profile() {
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this article?')) {
-      axios.delete(`http://localhost:5000/api/articles/${id}`)
-        .then(() => fetchUserArticles());
+      http.delete(`/api/articles/${id}`)
+        .then(() => fetchUserArticles())
+        .catch(err => {
+          console.error(err);
+          alert('Failed to delete article. Make sure you are logged in.');
+        });
     }
   };
 

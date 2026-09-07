@@ -27,6 +27,29 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
+// Like authenticateToken, but does not reject the request when no/invalid
+// token is present — it just leaves req.user unset. Used on routes that are
+// public but behave differently for a logged-in owner/admin (e.g. viewing
+// an article that may still be unpublished).
+const optionalAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return next();
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    req.user = jwt.verify(token, JWT_SECRET);
+  } catch (error) {
+    // Invalid/expired token on an optional-auth route: treat as anonymous
+    // rather than failing the request.
+  }
+
+  next();
+};
+
 const requireAdmin = (req, res, next) => {
   if (!req.user) {
     return res.status(401).json({
@@ -45,5 +68,7 @@ const requireAdmin = (req, res, next) => {
 
 module.exports = {
   authenticateToken,
+  optionalAuth,
   requireAdmin,
+  JWT_SECRET,
 };

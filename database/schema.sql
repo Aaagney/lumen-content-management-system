@@ -1,3 +1,16 @@
+-- =====================================================================
+-- Lumen CMS — canonical database schema
+--
+-- This file only creates the database and tables. It is safe to run
+-- multiple times: every statement uses CREATE ... IF NOT EXISTS, and all
+-- indexes are declared inline inside the CREATE TABLE statements (rather
+-- than as separate CREATE INDEX statements) so re-running this file never
+-- fails with a "duplicate key name" error.
+--
+-- Optional demo/seed data lives in seed.sql, not here — run that
+-- separately, and only once, against a fresh database.
+-- =====================================================================
+
 CREATE DATABASE IF NOT EXISTS cms_db;
 USE cms_db;
 
@@ -69,7 +82,11 @@ CREATE TABLE IF NOT EXISTS articles (
     CONSTRAINT fk_articles_category
         FOREIGN KEY (category_id)
         REFERENCES categories(id)
-        ON DELETE SET NULL
+        ON DELETE SET NULL,
+
+    KEY idx_articles_author (author_id),
+    KEY idx_articles_status (status),
+    KEY idx_articles_category (category_id)
 );
 
 -- =========================
@@ -103,7 +120,11 @@ CREATE TABLE IF NOT EXISTS comments (
     CONSTRAINT fk_comments_parent
         FOREIGN KEY (parent_id)
         REFERENCES comments(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    KEY idx_comments_article (article_id),
+    KEY idx_comments_user (user_id),
+    KEY idx_comments_parent (parent_id)
 );
 
 -- =========================
@@ -131,33 +152,8 @@ CREATE TABLE IF NOT EXISTS notifications (
     CONSTRAINT fk_notifications_recipient
         FOREIGN KEY (recipient_id)
         REFERENCES users(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    KEY idx_notifications_recipient (recipient_id),
+    KEY idx_notifications_read (recipient_id, is_read)
 );
-
--- =========================
--- INDEXES
--- =========================
-
-CREATE INDEX idx_articles_author
-    ON articles(author_id);
-
-CREATE INDEX idx_articles_status
-    ON articles(status);
-
-CREATE INDEX idx_articles_category
-    ON articles(category_id);
-
-CREATE INDEX idx_comments_article
-    ON comments(article_id);
-
-CREATE INDEX idx_comments_user
-    ON comments(user_id);
-
-CREATE INDEX idx_comments_parent
-    ON comments(parent_id);
-
-CREATE INDEX idx_notifications_recipient
-    ON notifications(recipient_id);
-
-CREATE INDEX idx_notifications_read
-    ON notifications(recipient_id, is_read);

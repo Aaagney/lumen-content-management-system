@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import http from '../api/http';
 
 export default function WriteArticle() {
   const [searchParams] = useSearchParams();
@@ -15,7 +15,7 @@ export default function WriteArticle() {
 
   useEffect(() => {
     if (editId) {
-      axios.get(`http://localhost:5000/api/articles/${editId}`)
+      http.get(`/api/articles/${editId}`)
         .then(res => {
           setTitle(res.data.title);
           setSubtitle(res.data.subtitle || '');
@@ -31,30 +31,32 @@ export default function WriteArticle() {
   }, [editId]);
 
   const handleSubmit = (status) => {
-    // Parse categoryId as an integer to prevent MySQL type errors
-    const payload = { 
-      title, 
-      subtitle, 
-      category_id: parseInt(categoryId), 
-      content, 
-      cover_image: coverImage, 
-      author_id: 1, 
-      status 
+    // Parse categoryId as an integer to prevent MySQL type errors.
+    // Note: the backend always determines the author from the logged-in
+    // user's JWT (req.user.id) — it no longer accepts an author_id here,
+    // so this request now requires a stored auth token (see api/http.js).
+    const payload = {
+      title,
+      subtitle,
+      category_id: parseInt(categoryId),
+      content,
+      cover_image: coverImage,
+      status
     };
 
     if (editId) {
-      axios.put(`http://localhost:5000/api/articles/${editId}`, payload)
+      http.put(`/api/articles/${editId}`, payload)
         .then(() => navigate('/profile'))
         .catch(error => {
           console.error('Server failed to update:', error);
-          alert('Failed to update article. Check your backend VS Code terminal for the exact MySQL error.');
+          alert('Failed to update article. Make sure you are logged in.');
         });
     } else {
-      axios.post('http://localhost:5000/api/articles', payload)
+      http.post('/api/articles', payload)
         .then(() => navigate('/profile'))
         .catch(error => {
           console.error('Server failed to save:', error);
-          alert('Failed to save article. Check your backend VS Code terminal for the exact MySQL error.');
+          alert('Failed to save article. Make sure you are logged in.');
         });
     }
   };
