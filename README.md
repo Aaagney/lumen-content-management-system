@@ -104,6 +104,3 @@ npm run dev
 
 Open your browser and navigate to the local development URL provided by Vite (typically `http://localhost:5173`) to interact with the application.
 
-```
-
-```
