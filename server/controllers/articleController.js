@@ -135,3 +135,21 @@ exports.getArticlesByAuthor = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Fetch comments for an article including author details
+exports.getArticleComments = async (req, res) => {
+  try {
+    const articleId = req.params.id;
+    const [comments] = await db.execute(
+      `SELECT c.id, c.content, c.user_id, u.name AS user_name 
+       FROM comments c 
+       JOIN users u ON c.user_id = u.id 
+       WHERE c.article_id = ?`,
+      [articleId]
+    );
+    res.json(comments);
+  } catch (error) {
+    console.error("GET COMMENTS ERROR:", error.message);
+    res.status(500).json({ error: 'Failed to fetch comments' });
+  }
+};

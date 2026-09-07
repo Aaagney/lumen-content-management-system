@@ -9,5 +9,6 @@ router.get('/:id', articleController.getArticleById);
 router.post('/', articleController.createArticle);
 router.put('/:id', articleController.updateArticle);
 router.delete('/:id', articleController.deleteArticle);
+router.get('/:id/comments', articleController.getArticleComments);
 
 module.exports = router;

@@ -18,7 +18,8 @@ export default function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/article/:id" element={<ArticleDetail />} />
         <Route path="/write" element={<WriteArticle />} />
-        <Route path="/profile" element={<Profile />} />
+       <Route path="/profile" element={<Profile />} />
+<Route path="/profile/:userId" element={<Profile />} />
       </Routes>
     </Router>
   );

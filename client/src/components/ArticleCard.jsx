@@ -21,7 +21,11 @@ export default function ArticleCard({ article }) {
           {article.subtitle || article.content.substring(0, 100) + '...'}
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', fontSize: '12px', color: '#888' }}>
-          <span>{article.author_name} • {article.read_time}</span>
+          <small style={{ color: '#666' }}>
+  By <Link to={`/profile/${article.author_id}`} style={{ color: '#0066cc', textDecoration: 'none' }}>
+    {article.author_name || `Author #${article.author_id}`}
+  </Link>
+</small>
           <div style={{ display: 'flex', gap: '12px' }}>
             <span><Heart size={14} /> {article.likes_count}</span>
             <span><Bookmark size={14} /> {article.bookmarks_count}</span>
