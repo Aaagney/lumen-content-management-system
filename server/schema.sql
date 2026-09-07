@@ -65,6 +65,5 @@ CREATE TABLE IF NOT EXISTS comments (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Optional: Seed a test comment so it displays immediately
 INSERT INTO comments (article_id, user_id, content) 
 VALUES (1, 4, 'This is an incredible breakdown of CRISPR technology!');
