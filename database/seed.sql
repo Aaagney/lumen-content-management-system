@@ -12,7 +12,7 @@
 -- against a database that already has data in it.
 -- =====================================================================
 
-USE cms_db;
+USE lumen;
 
 INSERT IGNORE INTO categories (name) VALUES
     ('Science'), ('Technology'), ('Environment'), ('Health'), ('History');

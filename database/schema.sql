@@ -11,8 +11,8 @@
 -- separately, and only once, against a fresh database.
 -- =====================================================================
 
-CREATE DATABASE IF NOT EXISTS cms_db;
-USE cms_db;
+CREATE DATABASE IF NOT EXISTS lumen;
+USE lumen;
 
 -- =========================
 -- USERS
