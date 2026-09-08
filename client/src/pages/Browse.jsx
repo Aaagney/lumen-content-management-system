@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import http from '../api/http';
 import ArticleCard from '../components/ArticleCard';
 import { Search } from 'lucide-react';
 
@@ -9,11 +9,16 @@ export default function Browse() {
   const [articles, setArticles] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const fetchArticles = () => {
-    axios.get(`http://localhost:5000/api/articles?category=${activeCategory}&search=${searchQuery}`)
+    setLoading(true);
+    setError('');
+    http.get(`/api/articles?category=${activeCategory}&search=${searchQuery}`)
       .then(res => setArticles(res.data))
-      .catch(err => console.error(err));
+      .catch(() => setError('Could not load articles.'))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -61,6 +66,11 @@ export default function Browse() {
           <ArticleCard key={art.id} article={art} />
         ))}
       </div>
+      {loading && <p style={{ color: '#888', marginTop: '16px' }}>Loading articles...</p>}
+      {error && <p style={{ color: 'crimson', marginTop: '16px' }}>{error}</p>}
+      {!loading && !error && articles.length === 0 && (
+        <p style={{ color: '#888', marginTop: '16px' }}>No articles match your search.</p>
+      )}
     </div>
   );
 }

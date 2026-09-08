@@ -104,6 +104,10 @@ body {
 .badge-published { background: var(--badge-published); color: var(--badge-published-text); }
 .badge-pending { background: var(--badge-pending); color: var(--badge-pending-text); }
 .badge-draft { background: var(--badge-draft); color: var(--badge-draft-text); }
+.badge-pending-review { background: var(--badge-pending); color: var(--badge-pending-text); }
+.badge-approved { background: #DBEAFE; color: #1E40AF; }
+.badge-rejected { background: #FEE2E2; color: #991B1B; }
+.badge-changes-requested { background: #FFEDD5; color: #9A3412; }
 
 .article-grid {
   display: grid;

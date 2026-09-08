@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import http from '../api/http';
 import ArticleCard from '../components/ArticleCard';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [featured, setFeatured] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/articles')
+    http.get('/api/articles')
       .then(res => {
         if (res.data.length > 0) {
           setFeatured(res.data[0]);
           setArticles(res.data.slice(1));
         }
       })
-      .catch(err => console.error(err));
+      .catch(() => setError('Could not load articles.'))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <div className="container">
+      {loading && <p style={{ color: '#888' }}>Loading articles...</p>}
+      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+
       {featured && (
         <div style={{ background: '#1E3A2B', color: 'white', borderRadius: '12px', padding: '32px', marginBottom: '32px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'center' }}>
           <div>
@@ -39,6 +45,9 @@ export default function Home() {
       )}
 
       <h2>Recent Articles</h2>
+      {!loading && !error && articles.length === 0 && !featured && (
+        <p style={{ color: '#888' }}>No published articles yet.</p>
+      )}
       <div className="article-grid">
         {articles.map(art => (
           <ArticleCard key={art.id} article={art} />
