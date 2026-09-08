@@ -22,12 +22,12 @@ A role-based Content Management System where **Authors** create articles with qu
 |----------|---------------------------------------|
 | Frontend | React, Vite, React Router, Axios      |
 | Backend  | Node.js, Express.js                   |
-| Database | MongoDB (Mongoose ODM)                |
+| Database | MySQL                                 |
 
 ## Prerequisites
 
 - Node.js v18+
-- MongoDB (local install or MongoDB Atlas connection string)
+- MySQL Server (local install or hosted instance)
 - npm or yarn
 
 ## Getting Started
@@ -41,14 +41,18 @@ cd cms-project
 
 ### 2. Database Setup
 
-Ensure MongoDB is running locally, or have a MongoDB Atlas connection string ready. No manual schema/seed step is required — Mongoose creates collections automatically on first use.
+Ensure MySQL is running locally (or have a hosted connection string ready). Create the database and run the schema file:
+
+```bash
+mysql -u root -p < server/database/schema.sql
+```
 
 ### 3. Backend Setup
 
 ```bash
 cd server
 npm install
-cp .env.example .env   # then edit MONGO_URI, JWT_SECRET, etc.
+cp .env.example .env   # then edit DB_HOST/DB_USER/DB_PASSWORD/DB_NAME, JWT_SECRET, etc.
 npm run dev             # or: npm start
 ```
 
@@ -89,7 +93,7 @@ cms-project/
 │   └── .env
 ├── server/                # Express REST API
 │   ├── controllers/       # Route logic for admin, author, user
-│   ├── models/            # Article, Quiz, User (Mongoose) schemas
+│   ├── models/            # Article, Quiz, User (MySQL) models
 │   ├── routes/            # Role-specific API routes
 │   ├── middleware/        # Auth & role-based access checks
 │   ├── config/            # DB connection config
@@ -114,7 +118,10 @@ Set these in `server/.env`:
 | Variable       | Description                     | Default    |
 |----------------|----------------------------------|------------|
 | `PORT`         | Server port                     | 5000       |
-| `MONGO_URI`    | MongoDB connection string        | —          |
+| `DB_HOST`      | MySQL host                      | localhost  |
+| `DB_USER`      | MySQL username                  | root       |
+| `DB_PASSWORD`  | MySQL password                  | —          |
+| `DB_NAME`      | MySQL database name              | cms_db     |
 | `JWT_SECRET`   | Secret key for auth tokens       | —          |
 | `TOKEN_EXPIRY` | Auth token expiry duration       | 1d         |
 
@@ -170,7 +177,4 @@ Detailed architecture, API endpoints, and role workflows are in [`docs/DOCUMENTA
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
-
-
-
 
