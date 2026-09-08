@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ArticleCard from '../components/ArticleCard';
 import { Search } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 const categories = ['All', 'Science', 'Technology', 'Environment', 'Health', 'History'];
 
@@ -10,19 +11,19 @@ export default function Browse() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const fetchArticles = () => {
-    axios.get(`http://localhost:5000/api/articles?category=${activeCategory}&search=${searchQuery}`)
+  const fetchArticles = useCallback((category = activeCategory, search = searchQuery) => {
+    axios.get(`${API_ENDPOINTS.ARTICLES}?category=${category}&search=${search}`)
       .then(res => setArticles(res.data))
-      .catch(err => console.error(err));
-  };
+      .catch(err => console.error('Error fetching articles:', err));
+  }, [activeCategory, searchQuery]);
 
   useEffect(() => {
-    fetchArticles();
-  }, [activeCategory]);
+    fetchArticles(activeCategory, searchQuery);
+  }, [activeCategory, fetchArticles, searchQuery]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchArticles();
+    fetchArticles(activeCategory, searchQuery);
   };
 
   return (

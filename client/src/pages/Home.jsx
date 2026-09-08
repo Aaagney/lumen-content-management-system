@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ArticleCard from '../components/ArticleCard';
 import { Link } from 'react-router-dom';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
   const [featured, setFeatured] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/articles')
+    axios.get(API_ENDPOINTS.ARTICLES)
       .then(res => {
-        if (res.data.length > 0) {
+        if (res.data && res.data.length > 0) {
           setFeatured(res.data[0]);
           setArticles(res.data.slice(1));
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error('Error loading articles:', err));
   }, []);
 
   return (

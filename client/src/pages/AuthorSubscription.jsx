@@ -1,29 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { 
   CheckCircle, 
   XCircle, 
   ShieldCheck, 
   Sparkles, 
-  Calendar, 
-  Clock, 
   AlertCircle, 
   ArrowRight, 
   Check, 
   CreditCard, 
   RefreshCw,
-  Zap,
-  Award,
-  BookOpen
+  Award
 } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
-const API_BASE = 'http://localhost:5000/api/subscribe';
+const API_BASE = API_ENDPOINTS.SUBSCRIBE;
 
 export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)' }) {
   // Extract Author info based on current active role
   const isAuthor = currentRole.includes('(author)');
   const isReader = currentRole.includes('(reader)');
-  const isAdmin = currentRole.includes('(admin)');
   
   // Mapping demo author names to IDs
   const getAuthorId = (roleStr) => {
@@ -57,11 +53,53 @@ export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)
     }, 5000);
   };
 
-  // Fetch plans, status, and history
-  const fetchData = useCallback(async () => {
-    try {
-      setLoading(true);
+  // Load subscription details on initial mount or author change
+  useEffect(() => {
+    let isCurrent = true;
 
+    Promise.all([
+      axios.get(`${API_BASE}/plans`),
+      axios.get(`${API_BASE}/status/${authorId}`).catch(() => ({ data: { hasActiveSubscription: false, status: 'None' } })),
+      axios.get(`${API_BASE}/history/${authorId}`).catch(() => ({ data: { history: [] } })),
+    ])
+      .then(([plansRes, statusRes, historyRes]) => {
+        if (!isCurrent) return;
+
+        if (plansRes.data?.plans) {
+          setPlans(plansRes.data.plans);
+        }
+
+        if (statusRes.data?.hasActiveSubscription) {
+          setActiveSub(statusRes.data.subscription);
+          setSubStatus(statusRes.data.status);
+          setRemainingDays(statusRes.data.remainingDays || 0);
+        } else {
+          setActiveSub(null);
+          setSubStatus('None');
+          setRemainingDays(0);
+        }
+
+        if (historyRes.data?.history) {
+          setHistory(historyRes.data.history);
+        }
+      })
+      .catch((err) => {
+        if (!isCurrent) return;
+        console.error('Error loading subscription data:', err);
+        showToast('error', 'Could not load subscription details. Please verify backend server is running.');
+      })
+      .finally(() => {
+        if (isCurrent) setLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, [authorId]);
+
+  // Reload data after actions (subscribe/cancel/refresh)
+  const reloadData = async () => {
+    try {
       const [plansRes, statusRes, historyRes] = await Promise.all([
         axios.get(`${API_BASE}/plans`),
         axios.get(`${API_BASE}/status/${authorId}`).catch(() => ({ data: { hasActiveSubscription: false, status: 'None' } })),
@@ -86,16 +124,16 @@ export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)
         setHistory(historyRes.data.history);
       }
     } catch (err) {
-      console.error('Error loading subscription data:', err);
-      showToast('error', 'Could not load subscription details. Please verify backend server is running.');
-    } finally {
-      setLoading(false);
+      console.error('Error reloading subscription data:', err);
+      showToast('error', 'Could not load subscription details.');
     }
-  }, [authorId]);
+  };
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  const handleRefresh = async () => {
+    setLoading(true);
+    await reloadData();
+    setLoading(false);
+  };
 
   // Handle Subscribe Action
   const handleConfirmSubscribe = async () => {
@@ -111,7 +149,7 @@ export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)
 
       showToast('success', res.data.message || `Successfully subscribed to ${selectedPlanForSub.name}!`);
       setSelectedPlanForSub(null);
-      await fetchData();
+      await reloadData();
     } catch (err) {
       console.error('Subscription error:', err);
       const msg = err.response?.data?.message || 'Failed to complete subscription. Please try again.';
@@ -129,7 +167,7 @@ export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)
 
       showToast('success', res.data.message || 'Your subscription has been cancelled.');
       setShowCancelModal(false);
-      await fetchData();
+      await reloadData();
     } catch (err) {
       console.error('Cancellation error:', err);
       const msg = err.response?.data?.message || 'Failed to cancel subscription.';
@@ -298,7 +336,7 @@ export default function AuthorSubscription({ currentRole = 'Priya Mehta (author)
           </div>
           <button 
             className="btn btn-secondary" 
-            onClick={fetchData}
+            onClick={handleRefresh}
             title="Refresh plans and status"
             style={{ padding: '6px 12px', fontSize: '13px' }}
           >

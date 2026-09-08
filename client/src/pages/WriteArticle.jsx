@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function WriteArticle() {
   const [searchParams] = useSearchParams();
@@ -15,12 +16,12 @@ export default function WriteArticle() {
 
   useEffect(() => {
     if (editId) {
-      axios.get(`http://localhost:5000/api/articles/${editId}`)
+      axios.get(`${API_ENDPOINTS.ARTICLES}/${editId}`)
         .then(res => {
-          setTitle(res.data.title);
+          setTitle(res.data.title || '');
           setSubtitle(res.data.subtitle || '');
           setCategoryId(res.data.category_id || 1);
-          setContent(res.data.content);
+          setContent(res.data.content || '');
           setCoverImage(res.data.cover_image || '');
         })
         .catch(err => {
@@ -31,7 +32,7 @@ export default function WriteArticle() {
   }, [editId]);
 
   const handleSubmit = (status) => {
-    // Parse categoryId as an integer to prevent MySQL type errors
+    // Parse categoryId as an integer to prevent type errors
     const payload = { 
       title, 
       subtitle, 
@@ -43,18 +44,18 @@ export default function WriteArticle() {
     };
 
     if (editId) {
-      axios.put(`http://localhost:5000/api/articles/${editId}`, payload)
+      axios.put(`${API_ENDPOINTS.ARTICLES}/${editId}`, payload)
         .then(() => navigate('/profile'))
         .catch(error => {
           console.error('Server failed to update:', error);
-          alert('Failed to update article. Check your backend VS Code terminal for the exact MySQL error.');
+          alert('Failed to update article. Please check backend server.');
         });
     } else {
-      axios.post('http://localhost:5000/api/articles', payload)
+      axios.post(API_ENDPOINTS.ARTICLES, payload)
         .then(() => navigate('/profile'))
         .catch(error => {
           console.error('Server failed to save:', error);
-          alert('Failed to save article. Check your backend VS Code terminal for the exact MySQL error.');
+          alert('Failed to save article. Please check backend server.');
         });
     }
   };
