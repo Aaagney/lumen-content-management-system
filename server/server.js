@@ -3,6 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const articleRoutes = require('./routes/articleRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(express.json());
 // 3. Define routes AFTER middleware
 app.use('/api/articles', articleRoutes);
 app.use('/api/search', searchRoutes);
+
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
