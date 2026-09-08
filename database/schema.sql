@@ -2,13 +2,7 @@
 -- Lumen CMS — canonical database schema
 --
 -- This file only creates the database and tables. It is safe to run
--- multiple times: every statement uses CREATE ... IF NOT EXISTS, and all
--- indexes are declared inline inside the CREATE TABLE statements (rather
--- than as separate CREATE INDEX statements) so re-running this file never
--- fails with a "duplicate key name" error.
---
--- Optional demo/seed data lives in seed.sql, not here — run that
--- separately, and only once, against a fresh database.
+-- multiple times: every statement uses CREATE ... IF NOT EXISTS.
 -- =====================================================================
 
 CREATE DATABASE IF NOT EXISTS lumen;
@@ -156,4 +150,60 @@ CREATE TABLE IF NOT EXISTS notifications (
 
     KEY idx_notifications_recipient (recipient_id),
     KEY idx_notifications_read (recipient_id, is_read)
+);
+
+-- =========================
+-- SUBSCRIPTIONS
+-- =========================
+-- Author Subscription Module
+-- Uses the existing MariaDB/MySQL database.
+-- Each subscription belongs to an existing author in users.
+
+CREATE TABLE IF NOT EXISTS subscriptions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    author_id INT NOT NULL,
+
+    plan ENUM(
+        'Basic',
+        'Standard',
+        'Premium'
+    ) NOT NULL,
+
+    price DECIMAL(10, 2) NOT NULL,
+    currency VARCHAR(10) NOT NULL DEFAULT '$',
+
+    duration VARCHAR(50) NOT NULL DEFAULT '1 Month',
+
+    features JSON DEFAULT NULL,
+
+    status ENUM(
+        'Active',
+        'Cancelled',
+        'Expired'
+    ) NOT NULL DEFAULT 'Active',
+
+    start_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    end_date DATETIME NOT NULL,
+
+    cancelled_at DATETIME DEFAULT NULL,
+
+    auto_renew BOOLEAN NOT NULL DEFAULT TRUE,
+
+    transaction_id VARCHAR(100) NOT NULL UNIQUE,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_subscriptions_author
+        FOREIGN KEY (author_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    KEY idx_subscriptions_author (author_id),
+    KEY idx_subscriptions_status (status),
+    KEY idx_subscriptions_end_date (end_date),
+    KEY idx_subscriptions_author_status (author_id, status)
 );

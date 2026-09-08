@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET =
   process.env.JWT_SECRET || "lumen_secret_key_12345";
 
+
+// =====================================================
+// AUTHENTICATE TOKEN
+// =====================================================
+
 const authenticateToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -27,10 +32,11 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-// Like authenticateToken, but does not reject the request when no/invalid
-// token is present — it just leaves req.user unset. Used on routes that are
-// public but behave differently for a logged-in owner/admin (e.g. viewing
-// an article that may still be unpublished).
+
+// =====================================================
+// OPTIONAL AUTHENTICATION
+// =====================================================
+
 const optionalAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -43,12 +49,40 @@ const optionalAuth = (req, res, next) => {
   try {
     req.user = jwt.verify(token, JWT_SECRET);
   } catch (error) {
-    // Invalid/expired token on an optional-auth route: treat as anonymous
-    // rather than failing the request.
+    // Invalid/expired token on an optional-auth route:
+    // treat the request as anonymous.
   }
 
   next();
 };
+
+
+// =====================================================
+// VERIFY ROLE
+// =====================================================
+
+const verifyRole = (allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({
+        message: "Authentication required",
+      });
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: "Access denied",
+      });
+    }
+
+    next();
+  };
+};
+
+
+// =====================================================
+// REQUIRE ADMIN
+// =====================================================
 
 const requireAdmin = (req, res, next) => {
   if (!req.user) {
@@ -66,9 +100,15 @@ const requireAdmin = (req, res, next) => {
   next();
 };
 
+
+// =====================================================
+// EXPORTS
+// =====================================================
+
 module.exports = {
   authenticateToken,
   optionalAuth,
+  verifyRole,
   requireAdmin,
   JWT_SECRET,
 };

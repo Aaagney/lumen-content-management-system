@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminVerification from './pages/AdminVerification';
+import AuthorSubscription from './pages/AuthorSubscription';
 
 export default function App() {
   return (
@@ -23,30 +24,10 @@ export default function App() {
           <Route path="/article/:id" element={<ArticleDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/write"
-            element={
-              <ProtectedRoute>
-                <WriteArticle />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute requireAdmin>
-                <AdminVerification />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/write" element={<ProtectedRoute><WriteArticle /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/author/subscription" element={<ProtectedRoute><AuthorSubscription /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminVerification /></ProtectedRoute>} />
         </Routes>
       </Router>
     </AuthProvider>
