@@ -1,0 +1,12 @@
+const express=require('express');
+const router=express.Router();
+const c=require('../controllers/quizController');
+const {authenticateToken,optionalAuth,verifyRole}=require('../middleware/authMiddleware');
+router.get('/article/:articleId', c.listForArticle);
+router.get('/attempts/:attemptId', authenticateToken, c.getAttempt);
+router.get('/my-attempts', authenticateToken, c.myAttempts);
+router.get('/:id', optionalAuth, c.getQuiz);
+router.post('/:id/attempts', authenticateToken, verifyRole(['reader','author','admin']), c.submitAttempt);
+router.post('/', authenticateToken, verifyRole(['author','admin']), c.saveQuiz);
+router.put('/:id', authenticateToken, verifyRole(['author','admin']), async(req,res)=>{ req.body.article_id=req.body.article_id; return c.saveQuiz(req,res); });
+module.exports=router;

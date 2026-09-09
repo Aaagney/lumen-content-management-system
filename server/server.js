@@ -9,6 +9,7 @@ const commentRoutes = require("./routes/commentRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const subscriptionRoutes = require("./routes/subscriptionRoutes");
+const quizRoutes = require("./routes/quizRoutes");
 
 // Initializes the shared MySQL pool (config/db.js logs connection status).
 require("./config/db");
@@ -38,6 +39,7 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/subscribe", subscriptionRoutes);
+app.use("/api/quizzes", quizRoutes);
 
 // 404 handler
 app.use((req, res) => {

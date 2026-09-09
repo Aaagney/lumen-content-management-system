@@ -10,6 +10,7 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [quizzes, setQuizzes] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +21,7 @@ export default function ArticleDetail() {
       .then(res => setArticle(res.data))
       .catch(err => setError(err.response?.data?.message || 'Could not load this article.'))
       .finally(() => setLoading(false));
+    http.get(`/api/quizzes/article/${id}`).then(res => setQuizzes(res.data || [])).catch(() => setQuizzes([]));
   }, [id]);
 
   if (loading) return <div className="container"><p>Loading article...</p></div>;
@@ -67,6 +69,13 @@ export default function ArticleDetail() {
       <div style={{ fontSize: '18px', lineHeight: 1.8, color: '#2D3748', whiteSpace: 'pre-line' }}>
         {article.content}
       </div>
+
+      {quizzes.length > 0 && (
+        <div style={{ marginTop: '32px', padding: '20px', background: 'white', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+          <h2>Test your knowledge</h2>
+          {quizzes.map(q => <div key={q.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0'}}><div><strong>{q.title}</strong><div style={{fontSize:13,color:'#666'}}>{q.description}</div></div><Link className="btn btn-primary" to={`/quiz/${q.id}`}>Take Quiz</Link></div>)}
+        </div>
+      )}
 
       <CommentSection articleId={article.id} />
     </div>

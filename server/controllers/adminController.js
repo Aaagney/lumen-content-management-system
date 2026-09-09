@@ -42,7 +42,8 @@ exports.getPendingArticles = async (req, res) => {
 exports.updateArticleStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, admin_note } = req.body;
+    const { status: requestedStatus, admin_note } = req.body;
+    const status = requestedStatus === 'Approved' ? 'Published' : requestedStatus;
 
     if (!status || !ALLOWED_STATUSES.includes(status)) {
       return res.status(400).json({

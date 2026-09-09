@@ -28,22 +28,37 @@ export default function Navbar() {
         )}
 
         {user && user.role === 'author' && (
-          <NavLink to="/author/subscription" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Subscription</NavLink>
-        )}
+  <>
+    <NavLink to="/author/quizzes" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+      Quizzes
+    </NavLink>
+    <NavLink to="/author/subscription" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+      Subscription
+    </NavLink>
+  </>
+)}
 
         {user && (
           <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Profile</NavLink>
         )}
 
         {user && user.role === 'admin' && (
-          <NavLink to="/admin" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Admin Verification</NavLink>
-        )}
+  <>
+    <NavLink to="/admin/content" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+      Content
+    </NavLink>
+    <NavLink to="/admin" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+      Admin Verification
+    </NavLink>
+  </>
+)}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         {user ? (
           <>
             <NotificationBell />
+            <NavLink to="/notifications" className="nav-item">Notifications</NavLink>
             <span style={{ fontSize: '14px', color: '#444' }}>
               {user.fullname}{' '}
               <span style={{ color: '#999', textTransform: 'capitalize' }}>

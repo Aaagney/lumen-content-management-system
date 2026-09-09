@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const { createNotification, NOTIFICATION_TYPES } = require('../services/notificationService');
 
 const ALLOWED_STATUSES = [
   'Draft',
@@ -37,8 +38,9 @@ exports.getAllArticles = async (req, res) => {
     }
 
     if (search) {
-      query += ` AND (a.title LIKE ? OR a.subtitle LIKE ? OR a.content LIKE ?)`;
-      params.push(`%${search}%`, `%${search}%`, `%${search}%`);
+      query += ` AND (a.title LIKE ? OR a.subtitle LIKE ? OR a.content LIKE ? OR c.name LIKE ? OR u.fullname LIKE ?)`;
+      const searchTerm = `%${search}%`;
+      params.push(searchTerm, searchTerm, searchTerm, searchTerm, searchTerm);
     }
 
     query += ` ORDER BY a.created_at DESC`;
@@ -143,6 +145,18 @@ exports.createArticle = async (req, res) => {
       [title, subtitle, content, category_id, author_id, cover_image, status, read_time]
     );
 
+    if (status === 'Pending Review') {
+      try {
+        const [admins] = await db.execute("SELECT id FROM users WHERE role = 'admin'");
+        await Promise.all(admins.map(admin => createNotification({
+          recipient: admin.id, type: NOTIFICATION_TYPES.ARTICLE_SUBMITTED,
+          title: 'Article submitted for review',
+          message: `"${title}" was submitted for verification.`,
+          relatedEntityType: 'article', relatedEntityId: result.insertId, actionUrl: `/article/${result.insertId}`
+        })));
+      } catch (notifyErr) { console.error('Notification error (submission):', notifyErr.message); }
+    }
+
     res.status(201).json({ id: result.insertId, message: 'Article created successfully' });
   } catch (error) {
     console.error('Create article error:', error.message);
@@ -226,6 +240,16 @@ exports.deleteArticle = async (req, res) => {
     res.json({ message: 'Article deleted successfully' });
   } catch (error) {
     console.error('Delete article error:', error.message);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.getCategories = async (req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT id, name FROM categories ORDER BY name ASC');
+    res.json(rows);
+  } catch (error) {
+    console.error('Get categories error:', error.message);
     res.status(500).json({ message: 'Internal server error' });
   }
 };

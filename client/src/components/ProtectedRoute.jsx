@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 // Frontend-only convenience gate. The backend (authenticateToken /
 // requireAdmin) remains the real authorization boundary — this just avoids
 // showing a page that would immediately fail its API calls.
-export default function ProtectedRoute({ children, requireAdmin = false }) {
+export default function ProtectedRoute({ children, requireAdmin = false, allowedRoles = null }) {
   const { user, loading } = useAuth();
   const location = useLocation();
 
@@ -23,6 +23,10 @@ export default function ProtectedRoute({ children, requireAdmin = false }) {
         <p style={{ color: 'crimson' }}>You don't have permission to view this page.</p>
       </div>
     );
+  }
+
+  if (Array.isArray(allowedRoles) && !allowedRoles.includes(user.role)) {
+    return <div className="container"><p style={{ color: 'crimson' }}>You don't have permission to view this page.</p></div>;
   }
 
   return children;

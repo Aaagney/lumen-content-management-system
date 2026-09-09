@@ -1,0 +1,2 @@
+const db=require('../config/db');
+exports.list=async(req,res)=>{try{const {status}=req.query;let q=`SELECT a.*,u.fullname author_name,c.name category_name FROM articles a LEFT JOIN users u ON a.author_id=u.id LEFT JOIN categories c ON a.category_id=c.id`;const p=[];if(status){q+=' WHERE a.status=?';p.push(status)}q+=' ORDER BY a.updated_at DESC';const [rows]=await db.execute(q,p);res.json(rows)}catch(e){console.error(e);res.status(500).json({message:'Internal server error'})}};

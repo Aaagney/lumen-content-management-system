@@ -44,3 +44,25 @@ INSERT INTO articles (title, subtitle, content, category_id, author_id, cover_im
      'A draft awaiting editorial review.',
      'The ocean absorbs roughly a quarter of the carbon dioxide humans emit each year. This piece is still being polished by its author.',
      3, 2, 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200', 'Pending Review', 0, 0, 6);
+
+-- Optional sample quiz for the first published article.
+INSERT INTO quizzes (article_id, title, description, estimated_time, created_by)
+SELECT a.id, 'CRISPR Knowledge Check', 'Test what you remember from the article.', 3, a.author_id
+FROM articles a
+WHERE a.title = 'How CRISPR is Rewriting the Story of Human Disease'
+  AND NOT EXISTS (SELECT 1 FROM quizzes q WHERE q.article_id = a.id)
+LIMIT 1;
+
+INSERT INTO quiz_questions (quiz_id, question, explanation, question_order)
+SELECT q.id, 'What is CRISPR-Cas9 primarily used for?', 'CRISPR-Cas9 is a gene-editing technology.', 0
+FROM quizzes q
+WHERE q.title = 'CRISPR Knowledge Check'
+  AND NOT EXISTS (SELECT 1 FROM quiz_questions qq WHERE qq.quiz_id = q.id)
+LIMIT 1;
+
+INSERT INTO quiz_options (question_id, option_text, is_correct, option_order)
+SELECT qq.id, 'Gene editing', TRUE, 0 FROM quiz_questions qq JOIN quizzes q ON q.id=qq.quiz_id WHERE q.title='CRISPR Knowledge Check' AND qq.question_order=0
+UNION ALL
+SELECT qq.id, 'Weather forecasting', FALSE, 1 FROM quiz_questions qq JOIN quizzes q ON q.id=qq.quiz_id WHERE q.title='CRISPR Knowledge Check' AND qq.question_order=0
+UNION ALL
+SELECT qq.id, 'Image compression', FALSE, 2 FROM quiz_questions qq JOIN quizzes q ON q.id=qq.quiz_id WHERE q.title='CRISPR Knowledge Check' AND qq.question_order=0;
