@@ -13,73 +13,142 @@ export default function Navbar() {
     navigate('/');
   };
 
+  const navClass = ({ isActive }) =>
+    isActive ? 'nav-item active' : 'nav-item';
+
   return (
     <nav className="navbar">
+
+      {/* Logo */}
       <NavLink to="/" className="logo">
         <BookOpen size={24} /> Lucent
       </NavLink>
 
+      {/* Main Navigation */}
       <div className="nav-links">
-        <NavLink to="/" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Home</NavLink>
-        <NavLink to="/browse" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Browse</NavLink>
 
-        {user && (user.role === 'author' || user.role === 'admin') && (
-          <NavLink to="/write" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Write</NavLink>
-        )}
+        <NavLink to="/" className={navClass}>
+          Home
+        </NavLink>
 
-        {user && user.role === 'author' && (
-  <>
-    <NavLink to="/author/quizzes" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-      Quizzes
-    </NavLink>
-    <NavLink to="/author/subscription" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-      Subscription
-    </NavLink>
-  </>
-)}
+        <NavLink to="/browse" className={navClass}>
+          Browse
+        </NavLink>
 
+        {/* Personal Chat */}
         {user && (
-          <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>Profile</NavLink>
+          <NavLink to="/chat" className={navClass}>
+            Personal Chat
+          </NavLink>
         )}
 
+        {/* Write */}
+        {user && (user.role === 'author' || user.role === 'admin') && (
+          <NavLink to="/write" className={navClass}>
+            Write
+          </NavLink>
+        )}
+
+        {/* Author Options */}
+        {user && user.role === 'author' && (
+          <>
+            <NavLink to="/author/quizzes" className={navClass}>
+              Quizzes
+            </NavLink>
+
+            <NavLink to="/author/subscription" className={navClass}>
+              Subscription
+            </NavLink>
+          </>
+        )}
+
+        {/* Profile */}
+        {user && (
+          <NavLink to="/profile" className={navClass}>
+            Profile
+          </NavLink>
+        )}
+
+        {/* Admin Options */}
         {user && user.role === 'admin' && (
-  <>
-    <NavLink to="/admin/content" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-      Content
-    </NavLink>
-    <NavLink to="/admin" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
-      Admin Verification
-    </NavLink>
-  </>
-)}
+          <>
+            <NavLink to="/admin/content" className={navClass}>
+              Content
+            </NavLink>
+
+            <NavLink to="/admin" className={navClass}>
+              Admin Verification
+            </NavLink>
+          </>
+        )}
+
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      {/* Right Side */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}
+      >
+
         {user ? (
           <>
+            {/* Notifications */}
             <NotificationBell />
-            <NavLink to="/notifications" className="nav-item">Notifications</NavLink>
-            <span style={{ fontSize: '14px', color: '#444' }}>
+
+            <NavLink to="/notifications" className="nav-item">
+              Notifications
+            </NavLink>
+
+            {/* User Name & Role */}
+            <span
+              style={{
+                fontSize: '14px',
+                color: '#444'
+              }}
+            >
               {user.fullname}{' '}
-              <span style={{ color: '#999', textTransform: 'capitalize' }}>
+
+              <span
+                style={{
+                  color: '#999',
+                  textTransform: 'capitalize'
+                }}
+              >
                 ({user.role})
               </span>
             </span>
+
+            {/* Logout */}
             <button
               className="btn btn-secondary"
               onClick={handleLogout}
-              style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
             >
-              <LogOut size={14} /> Logout
+              <LogOut size={14} />
+              Logout
             </button>
           </>
         ) : (
           <>
-            <NavLink to="/login" className="btn btn-secondary">Login</NavLink>
-            <NavLink to="/register" className="btn btn-primary">Register</NavLink>
+            <NavLink to="/login" className="btn btn-secondary">
+              Login
+            </NavLink>
+
+            <NavLink to="/register" className="btn btn-primary">
+              Register
+            </NavLink>
           </>
         )}
+
       </div>
+
     </nav>
   );
 }
