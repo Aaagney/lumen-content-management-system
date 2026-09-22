@@ -1,0 +1,28 @@
+[
+  {
+    "id": "c19c4f8f-e3d0-4c31-a64f-8b84d0b71cd5",
+    "userId": "u-006",
+    "restrictionType": "TEMPORARY_POSTING_BAN",
+    "reason": "Automatic restriction: 3 high-risk detections within 24 hours",
+    "startTime": "2026-09-20T16:46:51.121Z",
+    "endTime": "2026-09-21T16:46:51.121Z",
+    "active": true,
+    "createdBy": "SYSTEM",
+    "relatedDetectionId": "6675b6e7-2843-4020-9792-1d673f640d64",
+    "createdAt": "2026-09-20T16:46:51.121Z"
+  },
+  {
+    "id": "b62b8d53-8ab1-4996-909d-41a0a639c56f",
+    "userId": "u-002",
+    "restrictionType": "TEMPORARY_POSTING_BAN",
+    "reason": "Manually restricted after repeated spam comments",
+    "startTime": "2026-09-18T17:46:51.121Z",
+    "endTime": "2026-09-19T17:46:51.121Z",
+    "active": false,
+    "createdBy": "admin",
+    "relatedDetectionId": "cf4d50a9-6d3b-40b8-b8c1-e1d87f3bf9ae",
+    "removedBy": "admin",
+    "removedAt": "2026-09-19T17:46:51.121Z",
+    "createdAt": "2026-09-18T17:46:51.121Z"
+  }
+]

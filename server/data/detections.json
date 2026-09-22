@@ -1,0 +1,397 @@
+[
+  {
+    "id": "02b5c4c0-e9dd-40b2-a753-53f511ffecbf",
+    "userId": "u-001",
+    "userName": "John Mathew",
+    "contentId": "2d4ea286-d568-4228-869a-ede963159467",
+    "contentType": "post",
+    "text": "Excited to share my new article on climate research findings!",
+    "riskScore": 5,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-20T15:46:51.121Z",
+    "updatedAt": "2026-09-20T15:46:51.121Z"
+  },
+  {
+    "id": "cf4d50a9-6d3b-40b8-b8c1-e1d87f3bf9ae",
+    "userId": "u-002",
+    "userName": "David Wilson",
+    "contentId": "7cdddf4e-1088-4a3b-8cec-fd74c4ec5d44",
+    "contentType": "comment",
+    "text": "Buy now! Limited offer! Click here for free money http://bit.ly/xyz123",
+    "riskScore": 70,
+    "riskLevel": "HIGH",
+    "action": "BLOCK",
+    "status": "BLOCKED",
+    "reasons": [
+      "Contains promotional/spam-like language",
+      "Contains suspicious links (shortened, IP-based, or obfuscated)",
+      "Same content repeated recently"
+    ],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": true,
+      "suspiciousLinks": true,
+      "excessiveLinks": false,
+      "promotionalContent": true,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [
+      {
+        "url": "http://bit.ly/xyz123",
+        "hostname": "bit.ly",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      }
+    ],
+    "totalLinks": 1,
+    "createdAt": "2026-09-20T09:46:51.121Z",
+    "updatedAt": "2026-09-20T09:46:51.121Z"
+  },
+  {
+    "id": "5b9ac6ae-8457-43b2-aec6-bc83bbb85094",
+    "userId": "u-003",
+    "userName": "Sarah Thomas",
+    "contentId": "df08b337-0b2e-4784-9320-471fde9b57e3",
+    "contentType": "post",
+    "text": "Check out this great deal on electronics at my store",
+    "riskScore": 40,
+    "riskLevel": "MEDIUM",
+    "action": "FLAG",
+    "status": "PENDING_REVIEW",
+    "reasons": [
+      "Contains promotional/spam-like language",
+      "Excessive posting/commenting activity in a short period"
+    ],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": true,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": true,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-20T02:46:51.121Z",
+    "updatedAt": "2026-09-20T02:46:51.121Z"
+  },
+  {
+    "id": "6675b6e7-2843-4020-9792-1d673f640d64",
+    "userId": "u-006",
+    "userName": "SpamBot99",
+    "contentId": "2bbf7e26-e6a5-410d-a461-11afaa8e9b62",
+    "contentType": "comment",
+    "text": "Great post!!! visit http://192.168.10.5/promo and http://bit.ly/abc and http://tinyurl.com/def now",
+    "riskScore": 90,
+    "riskLevel": "HIGH",
+    "action": "BLOCK",
+    "status": "BLOCKED",
+    "reasons": [
+      "Contains suspicious links (shortened, IP-based, or obfuscated)",
+      "Contains an unusually high number of links (3)",
+      "User has previous high-risk violations"
+    ],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": true,
+      "repeatedPosting": true,
+      "suspiciousLinks": true,
+      "excessiveLinks": true,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": true
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [
+      {
+        "url": "http://192.168.10.5/promo",
+        "hostname": "192.168.10.5",
+        "isShortened": false,
+        "isIpBased": true,
+        "isObfuscated": false
+      },
+      {
+        "url": "http://bit.ly/abc",
+        "hostname": "bit.ly",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      },
+      {
+        "url": "http://tinyurl.com/def",
+        "hostname": "tinyurl.com",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      }
+    ],
+    "totalLinks": 3,
+    "createdAt": "2026-09-20T16:46:51.121Z",
+    "updatedAt": "2026-09-20T16:46:51.121Z"
+  },
+  {
+    "id": "3d6c3e28-7182-4248-b254-7671f66f9250",
+    "userId": "u-004",
+    "userName": "Alex Kumar",
+    "contentId": "902fed30-5736-4540-a590-b3d6e0f07f08",
+    "contentType": "post",
+    "text": "Just published my quiz on world capitals, check it out!",
+    "riskScore": 0,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-19T09:46:51.121Z",
+    "updatedAt": "2026-09-19T09:46:51.121Z"
+  },
+  {
+    "id": "12deae53-2749-45a9-b42b-69c9c89ea126",
+    "userId": "demo-user-1",
+    "userName": "Demo User",
+    "contentId": "19d7a148-71e3-4519-a502-385f014df8c6",
+    "contentType": "post",
+    "text": "Just finished reading a great book on marine biology, highly recommend it.",
+    "riskScore": 0,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-20T17:50:17.177Z",
+    "updatedAt": "2026-09-20T17:50:17.177Z"
+  },
+  {
+    "id": "39ddbc85-1aee-4b3a-b7e3-fbf11730e0c0",
+    "userId": "demo-user-1",
+    "userName": "Demo User",
+    "contentId": "a5a1788c-9d67-4cd2-a4fb-2cd2e8fd7c47",
+    "contentType": "post",
+    "text": "xusabdubqwje deje nirinf",
+    "riskScore": 0,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-20T17:50:26.455Z",
+    "updatedAt": "2026-09-20T17:50:26.455Z"
+  },
+  {
+    "id": "bec24f24-c191-4364-b90f-f011e5a41184",
+    "userId": "demo-user-3",
+    "userName": "Link Farmer",
+    "contentId": "875d19d3-abbf-498f-8b86-e5535c91aaa0",
+    "contentType": "post",
+    "text": "Check these out http://192.168.10.5/promo http://bit.ly/abc http://tinyurl.com/def",
+    "riskScore": 25,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [
+      "Contains suspicious links (shortened, IP-based, or obfuscated)"
+    ],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": true,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [
+      {
+        "url": "http://192.168.10.5/promo",
+        "hostname": "192.168.10.5",
+        "isShortened": false,
+        "isIpBased": true,
+        "isObfuscated": false
+      },
+      {
+        "url": "http://bit.ly/abc",
+        "hostname": "bit.ly",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      },
+      {
+        "url": "http://tinyurl.com/def",
+        "hostname": "tinyurl.com",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      }
+    ],
+    "totalLinks": 3,
+    "createdAt": "2026-09-20T17:50:35.777Z",
+    "updatedAt": "2026-09-20T17:50:35.777Z"
+  },
+  {
+    "id": "f1d14d94-75c9-42b7-bae4-fee41b3306aa",
+    "userId": "demo-user-4",
+    "userName": "Repeat Poster",
+    "contentId": "a0e783e8-5d1e-4973-b497-7e8aa1ed88d9",
+    "contentType": "post",
+    "text": "Check out my amazing product deal today, dont miss out",
+    "riskScore": 0,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 0,
+    "createdAt": "2026-09-20T17:50:44.764Z",
+    "updatedAt": "2026-09-20T17:50:44.764Z"
+  },
+  {
+    "id": "bf250e51-c133-4ba6-971f-59d025c31000",
+    "userId": "demo-user-2",
+    "userName": "Demo Spammer",
+    "contentId": "e456538c-5f93-4b0e-9f89-245a9508aca4",
+    "contentType": "comment",
+    "text": "Buy now! Limited offer! Click here for free money http://bit.ly/xyz123",
+    "riskScore": 40,
+    "riskLevel": "MEDIUM",
+    "action": "FLAG",
+    "status": "PENDING_REVIEW",
+    "reasons": [
+      "Contains suspicious links (shortened, IP-based, or obfuscated)",
+      "Contains promotional/spam-like language"
+    ],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": true,
+      "excessiveLinks": false,
+      "promotionalContent": true,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [
+      {
+        "url": "http://bit.ly/xyz123",
+        "hostname": "bit.ly",
+        "isShortened": true,
+        "isIpBased": false,
+        "isObfuscated": false
+      }
+    ],
+    "totalLinks": 1,
+    "createdAt": "2026-09-20T17:51:00.537Z",
+    "updatedAt": "2026-09-20T17:51:00.537Z"
+  },
+  {
+    "id": "96cc424d-e1aa-4edd-b181-00c6b1569f61",
+    "userId": "demo-user-3",
+    "userName": "Link Farmer",
+    "contentId": "ebd6aad0-f3d0-4a2e-a14d-f769302913d1",
+    "contentType": "post",
+    "text": "click on this link you have received bonus https://124asknw",
+    "riskScore": 0,
+    "riskLevel": "LOW",
+    "action": "ALLOW",
+    "status": "ALLOWED",
+    "reasons": [],
+    "signals": {
+      "duplicateContent": false,
+      "excessiveActivity": false,
+      "repeatedPosting": false,
+      "suspiciousLinks": false,
+      "excessiveLinks": false,
+      "promotionalContent": false,
+      "repeatedDomain": false,
+      "previousViolations": false
+    },
+    "matchedContentId": null,
+    "similarityScore": null,
+    "suspiciousUrls": [],
+    "totalLinks": 1,
+    "createdAt": "2026-09-20T17:51:30.892Z",
+    "updatedAt": "2026-09-20T17:51:30.892Z"
+  }
+]

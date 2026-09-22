@@ -1,0 +1,101 @@
+[
+  {
+    "id": "eca22613-627f-4277-a8e5-3ca38e8663c5",
+    "detectionId": "cf4d50a9-6d3b-40b8-b8c1-e1d87f3bf9ae",
+    "userId": "u-002",
+    "adminId": "SYSTEM",
+    "action": "AUTO_BLOCK",
+    "reason": "Contains promotional/spam-like language; Contains suspicious links (shortened, IP-based, or obfuscated); Same content repeated recently",
+    "previousStatus": null,
+    "newStatus": "BLOCKED",
+    "timestamp": "2026-09-20T09:46:51.121Z"
+  },
+  {
+    "id": "7ef1dcf3-2081-4ceb-898b-8f8d85dbbc37",
+    "detectionId": "6675b6e7-2843-4020-9792-1d673f640d64",
+    "userId": "u-006",
+    "adminId": "SYSTEM",
+    "action": "AUTO_BLOCK",
+    "reason": "Contains suspicious links (shortened, IP-based, or obfuscated); Contains an unusually high number of links (3); User has previous high-risk violations",
+    "previousStatus": null,
+    "newStatus": "BLOCKED",
+    "timestamp": "2026-09-20T16:46:51.121Z"
+  },
+  {
+    "id": "d9d7b2a7-2a27-4895-bd1c-efa7fbf7e617",
+    "detectionId": null,
+    "userId": "u-006",
+    "adminId": "SYSTEM",
+    "action": "AUTO_RESTRICT",
+    "reason": "Automatic restriction: 3 high-risk detections within 24 hours",
+    "previousStatus": "ACTIVE",
+    "newStatus": "RESTRICTED",
+    "timestamp": "2026-09-20T16:46:51.121Z"
+  },
+  {
+    "id": "5b380367-f5db-4950-819d-de7b0b3f3073",
+    "detectionId": "12deae53-2749-45a9-b42b-69c9c89ea126",
+    "userId": "demo-user-1",
+    "adminId": "SYSTEM",
+    "action": "AUTO_ALLOW",
+    "reason": "No risk signals detected",
+    "previousStatus": null,
+    "newStatus": "ALLOWED",
+    "timestamp": "2026-09-20T17:50:17.199Z"
+  },
+  {
+    "id": "e90b7df1-ab14-4c17-bb4c-590a084b5e77",
+    "detectionId": "39ddbc85-1aee-4b3a-b7e3-fbf11730e0c0",
+    "userId": "demo-user-1",
+    "adminId": "SYSTEM",
+    "action": "AUTO_ALLOW",
+    "reason": "No risk signals detected",
+    "previousStatus": null,
+    "newStatus": "ALLOWED",
+    "timestamp": "2026-09-20T17:50:26.496Z"
+  },
+  {
+    "id": "5969d4b5-e3e8-49ed-8247-be30f6f1655a",
+    "detectionId": "bec24f24-c191-4364-b90f-f011e5a41184",
+    "userId": "demo-user-3",
+    "adminId": "SYSTEM",
+    "action": "AUTO_ALLOW",
+    "reason": "Contains suspicious links (shortened, IP-based, or obfuscated)",
+    "previousStatus": null,
+    "newStatus": "ALLOWED",
+    "timestamp": "2026-09-20T17:50:35.847Z"
+  },
+  {
+    "id": "08b075e5-ae74-4b1b-baa5-5db10cdd07c7",
+    "detectionId": "f1d14d94-75c9-42b7-bae4-fee41b3306aa",
+    "userId": "demo-user-4",
+    "adminId": "SYSTEM",
+    "action": "AUTO_ALLOW",
+    "reason": "No risk signals detected",
+    "previousStatus": null,
+    "newStatus": "ALLOWED",
+    "timestamp": "2026-09-20T17:50:44.792Z"
+  },
+  {
+    "id": "c7ea0b9d-c082-4151-983b-0d6b296d85ac",
+    "detectionId": "bf250e51-c133-4ba6-971f-59d025c31000",
+    "userId": "demo-user-2",
+    "adminId": "SYSTEM",
+    "action": "AUTO_FLAG",
+    "reason": "Contains suspicious links (shortened, IP-based, or obfuscated); Contains promotional/spam-like language",
+    "previousStatus": null,
+    "newStatus": "PENDING_REVIEW",
+    "timestamp": "2026-09-20T17:51:00.567Z"
+  },
+  {
+    "id": "f5169399-f2bc-4a60-9b40-02ea540682ad",
+    "detectionId": "96cc424d-e1aa-4edd-b181-00c6b1569f61",
+    "userId": "demo-user-3",
+    "adminId": "SYSTEM",
+    "action": "AUTO_ALLOW",
+    "reason": "No risk signals detected",
+    "previousStatus": null,
+    "newStatus": "ALLOWED",
+    "timestamp": "2026-09-20T17:51:30.923Z"
+  }
+]

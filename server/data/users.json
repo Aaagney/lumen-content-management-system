@@ -1,0 +1,26 @@
+[
+  {
+    "userId": "u-001",
+    "userName": "John Mathew"
+  },
+  {
+    "userId": "u-002",
+    "userName": "David Wilson"
+  },
+  {
+    "userId": "u-003",
+    "userName": "Sarah Thomas"
+  },
+  {
+    "userId": "u-004",
+    "userName": "Alex Kumar"
+  },
+  {
+    "userId": "u-005",
+    "userName": "Priya Nair"
+  },
+  {
+    "userId": "u-006",
+    "userName": "SpamBot99"
+  }
+]
