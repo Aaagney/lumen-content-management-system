@@ -67,3 +67,35 @@ CREATE TABLE IF NOT EXISTS comments (
 
 INSERT INTO comments (article_id, user_id, content) 
 VALUES (1, 4, 'This is an incredible breakdown of CRISPR technology!');
+
+CREATE TABLE IF NOT EXISTS reports (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  reporter_id INT NOT NULL,
+  reported_type ENUM('article', 'comment', 'user') NOT NULL,
+  reported_id INT NOT NULL,
+  reason VARCHAR(100) NOT NULL,
+  description TEXT,
+  status ENUM('Pending', 'Under Review', 'Resolved', 'Rejected') DEFAULT 'Pending',
+  admin_note TEXT,
+  risk_score DECIMAL(5,2) DEFAULT NULL,
+  risk_level VARCHAR(20) DEFAULT NULL,
+  ai_result VARCHAR(50) DEFAULT NULL,
+  ai_reason TEXT DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS appeals (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  report_id INT NOT NULL,
+  appellant_id INT NOT NULL,
+  reason VARCHAR(255) NOT NULL,
+  description TEXT,
+  status ENUM('Pending', 'Under Review', 'Approved', 'Rejected') DEFAULT 'Pending',
+  admin_note TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (report_id) REFERENCES reports(id) ON DELETE CASCADE,
+  FOREIGN KEY (appellant_id) REFERENCES users(id) ON DELETE CASCADE
+);
