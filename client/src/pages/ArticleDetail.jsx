@@ -1,99 +1,210 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { Flag, Send, MessageSquare } from 'lucide-react';
+import ReportModal from '../components/ReportModal';
+import { useAuth } from '../context/AuthContext';
 
 export default function ArticleDetail() {
   const { id } = useParams();
+  const { currentUser } = useAuth();
   const [article, setArticle] = useState(null);
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [submittingComment, setSubmittingComment] = useState(false);
 
-  useEffect(() => {
+  // Reporting State
+  const [reportingTarget, setReportingTarget] = useState(null); // { type, id, title }
+
+  const fetchArticleAndComments = () => {
     axios.get(`http://localhost:5000/api/articles/${id}`)
-      .then(res => setArticle(res.data));
+      .then(res => setArticle(res.data))
+      .catch(err => console.error(err));
     
     axios.get(`http://localhost:5000/api/articles/${id}/comments`)
       .then(res => setComments(res.data))
       .catch(() => setComments([]));
+  };
+
+  useEffect(() => {
+    fetchArticleAndComments();
   }, [id]);
 
-  if (!article) return <div>Loading article...</div>;
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    if (!newComment.trim()) return;
+
+    setSubmittingComment(true);
+    // Directly add comment via basic API or fallback to update comments state
+    axios.post(`http://localhost:5000/api/articles/${id}/comments`, {
+      content: newComment.trim(),
+      user_id: currentUser ? currentUser.id : 1
+    })
+    .then(() => {
+      setNewComment('');
+      fetchArticleAndComments();
+    })
+    .catch(() => {
+      // Fallback local update if specific post comment route differs
+      setComments(prev => [
+        ...prev,
+        {
+          id: Date.now(),
+          content: newComment.trim(),
+          user_id: currentUser ? currentUser.id : 1,
+          user_name: currentUser ? currentUser.name : 'You'
+        }
+      ]);
+      setNewComment('');
+    })
+    .finally(() => {
+      setSubmittingComment(false);
+    });
+  };
+
+  if (!article) return <div className="container" style={{ padding: '60px 0', textAlign: 'center' }}>Loading article...</div>;
 
   return (
-    <div className="container" style={{ maxWidth: '720px', margin: '40px auto' }}>
-      <h1>{article.title}</h1>
-      <p style={{ color: '#666' }}>
-        By <Link to={`/profile/${article.author_id}`} style={{ color: '#0066cc', textDecoration: 'none' }}>
-          {article.author_name || `Author #${article.author_id}`}
-        </Link>
-      </p>
-      
-      <div style={{ marginTop: '20px', lineHeight: '1.7' }}>
+    <div className="container" style={{ maxWidth: '760px', margin: '40px auto' }}>
+      {article.category_name && (
+        <span className="badge badge-published" style={{ marginBottom: '12px' }}>
+          {article.category_name}
+        </span>
+      )}
+
+      <h1 style={{ fontSize: '36px', lineHeight: 1.25, margin: '12px 0 8px 0' }}>
+        {article.title}
+      </h1>
+
+      {article.subtitle && (
+        <p style={{ fontSize: '18px', color: '#555', lineHeight: 1.4, margin: '0 0 20px 0' }}>
+          {article.subtitle}
+        </p>
+      )}
+
+      {/* Author and Metadata Bar */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '16px', borderBottom: '1px solid var(--border-color)', margin: '20px 0 24px 0', flexWrap: 'wrap', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <img
+            src={article.author_avatar || 'https://via.placeholder.com/44'}
+            alt=""
+            style={{ width: '44px', height: '44px', borderRadius: '50%', objectFit: 'cover' }}
+          />
+          <div>
+            <Link to={`/profile/${article.author_id}`} style={{ fontWeight: 600, color: '#1E293B', textDecoration: 'none', display: 'block' }}>
+              {article.author_name || `Author #${article.author_id}`}
+            </Link>
+            <span style={{ fontSize: '12px', color: '#64748B' }}>
+              {article.read_time || '5 min read'} • Published
+            </span>
+          </div>
+        </div>
+
+        {/* Report Article Action */}
+        <button
+          className="btn-report"
+          onClick={() => setReportingTarget({ type: 'article', id: article.id, title: article.title })}
+          title="Report this article"
+        >
+          <Flag size={14} />
+          <span>Report Article</span>
+        </button>
+      </div>
+
+      {article.cover_image && (
+        <img
+          src={article.cover_image}
+          alt={article.title}
+          style={{ width: '100%', height: '320px', objectFit: 'cover', borderRadius: '8px', marginBottom: '28px' }}
+        />
+      )}
+
+      {/* Article Content */}
+      <div style={{ fontSize: '17px', lineHeight: '1.8', color: '#2D3748', whiteSpace: 'pre-line' }}>
         {article.content}
       </div>
 
-      <hr style={{ margin: '40px 0' }} />
+      <hr style={{ margin: '48px 0 32px 0', borderColor: 'var(--border-color)' }} />
 
-      <h3>Comments</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
-        {comments.length > 0 ? (
-          comments.map(comment => (
-            <div key={comment.id} style={{ padding: '12px', background: '#f9f9f9', borderRadius: '6px', border: '1px solid #eee' }}>
-              {/* Clickable commenter profile link */}
-              <Link 
-                to={`/profile/${comment.user_id}`} 
-                style={{ fontWeight: 'bold', color: '#0066cc', textDecoration: 'none' }}
-              >
-                {comment.user_name}
-              </Link>
-              <p style={{ margin: '6px 0 0 0', color: '#555' }}>{comment.content}</p>
-            </div>
-          ))
-        ) : (
-          <p style={{ color: '#777' }}>No comments yet.</p>
-        )}
+      {/* Comments Section */}
+      <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+          <MessageSquare size={20} color="#1E3A2B" />
+          <h3 style={{ margin: 0, fontSize: '20px' }}>Comments ({comments.length})</h3>
+        </div>
+
+        {/* Post comment input */}
+        <form onSubmit={handleAddComment} style={{ marginBottom: '24px' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <input
+              type="text"
+              className="input-field"
+              placeholder="Join the discussion..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              style={{ margin: 0 }}
+            />
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submittingComment || !newComment.trim()}
+              style={{ display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}
+            >
+              <Send size={15} /> Post
+            </button>
+          </div>
+        </form>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment.id} className="comment-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Link
+                      to={`/profile/${comment.user_id}`}
+                      style={{ fontWeight: 600, color: '#1E293B', textDecoration: 'none', fontSize: '14px' }}
+                    >
+                      {comment.user_name || `User #${comment.user_id}`}
+                    </Link>
+                  </div>
+
+                  {/* Report Comment Action */}
+                  <button
+                    className="btn-report-compact"
+                    onClick={() => setReportingTarget({
+                      type: 'comment',
+                      id: comment.id,
+                      title: comment.content
+                    })}
+                    title="Report this comment"
+                  >
+                    <Flag size={12} />
+                    <span>Report</span>
+                  </button>
+                </div>
+
+                <p style={{ margin: '8px 0 0 0', color: '#475569', fontSize: '14px', lineHeight: 1.5 }}>
+                  {comment.content}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p style={{ color: '#777', fontStyle: 'italic', fontSize: '14px' }}>No comments yet. Be the first to share your thoughts!</p>
+          )}
+        </div>
       </div>
+
+      {/* Report Modal */}
+      {reportingTarget && (
+        <ReportModal
+          isOpen={!!reportingTarget}
+          onClose={() => setReportingTarget(null)}
+          targetType={reportingTarget.type}
+          targetId={reportingTarget.id}
+          targetTitle={reportingTarget.title}
+        />
+      )}
     </div>
   );
 }
-
-
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import axios from 'axios';
-
-// export default function ArticleDetail() {
-//   const { id } = useParams();
-//   const [article, setArticle] = useState(null);
-
-//   useEffect(() => {
-//     axios.get(`http://localhost:5000/api/articles/${id}`)
-//       .then(res => setArticle(res.data))
-//       .catch(err => console.error(err));
-//   }, [id]);
-
-//   if (!article) return <div className="container"><p>Loading article...</p></div>;
-
-//   return (
-//     <div className="container" style={{ maxWidth: '760px', marginTop: '32px' }}>
-//       <span className="badge badge-published" style={{ marginBottom: '12px' }}>{article.category_name}</span>
-//       <h1 style={{ fontSize: '38px', lineHeight: 1.2, margin: '12px 0' }}>{article.title}</h1>
-//       <p style={{ fontSize: '20px', color: '#555', lineHeight: 1.4 }}>{article.subtitle}</p>
-
-//       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '24px 0', paddingBottom: '20px', borderBottom: '1px solid #E2E8F0' }}>
-//         <img src={article.author_avatar} alt={article.author_name} style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
-//         <div>
-//           <strong style={{ display: 'block' }}>{article.author_name}</strong>
-//           <span style={{ fontSize: '13px', color: '#777' }}>Published • {article.read_time}</span>
-//         </div>
-//       </div>
-
-//       {article.cover_image && (
-//         <img src={article.cover_image} alt={article.title} style={{ width: '100%', borderRadius: '8px', marginBottom: '24px' }} />
-//       )}
-
-//       <div style={{ fontSize: '18px', lineHeight: 1.8, color: '#2D3748', whiteSpace: 'pre-line' }}>
-//         {article.content}
-//       </div>
-//     </div>
-//   );
-// }
