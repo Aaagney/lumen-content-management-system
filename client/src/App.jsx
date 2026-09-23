@@ -11,6 +11,8 @@ import MyAppeals from './pages/MyAppeals';
 import AdminReports from './pages/AdminReports';
 import AdminAppeals from './pages/AdminAppeals';
 import { AuthProvider } from './context/AuthContext';
+import { ContentApproval } from "./pages/content-approval";
+<Route path="/approvals" element={<ContentApproval />} />
 
 export default function App() {
   const [role, setRole] = useState('Priya Mehta (author)');
@@ -30,6 +32,7 @@ export default function App() {
           <Route path="/my-appeals" element={<MyAppeals />} />
           <Route path="/admin/reports" element={<AdminReports />} />
           <Route path="/admin/appeals" element={<AdminAppeals />} />
+          <Route path="/approvals" element={<ContentApproval />} />
         </Routes>
       </Router>
     </AuthProvider>
