@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const appealRoutes = require('./routes/appealRoutes');
 
+const approvalRoutes = require("./routes/approvalRoutes");
+app.use("/api/approvals", approvalRoutes);
 const app = express();
 
 // 1. MUST BE FIRST: Enable CORS specifically for your React app
